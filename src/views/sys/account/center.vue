@@ -13,7 +13,7 @@
           <Tabs.TabPane key="2" :tab="t('sys.account.securityTab')">
             <SecureSettings />
           </Tabs.TabPane>
-          <Tabs.TabPane key="3" :tab="t('通知设置')">
+          <Tabs.TabPane key="3" :tab="t('Notification Settings')">
             <NotifictionSetting />
           </Tabs.TabPane>
           <Tabs.TabPane key="4" :tab="t('sys.account.bindingTab')">
