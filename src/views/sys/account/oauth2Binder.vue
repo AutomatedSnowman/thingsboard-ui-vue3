@@ -1,5 +1,5 @@
 <template>
-  <CollapseContainer :title="t('账号绑定')" :canExpan="false">
+  <CollapseContainer :title="t('Account Binding')" :canExpan="false">
     <List>
       <template v-for="item in accountBindList" :key="item.key">
         <List.Item>
@@ -50,25 +50,25 @@
   const accountBindList: ListItem[] = [
     {
       key: '1',
-      title: t('绑定QQ'),
-      description: t('当前未绑定QQ账号'),
-      extra: t('绑定'),
+      title: t('BIND QQ'),
+      description: t('Not bound to a QQ account.'),
+      extra: t('Bind'),
       avatar: 'ant-design:qq-circle-filled',
       color: '#2eabff',
     },
     {
       key: '2',
-      title: t('绑定微信'),
-      description: t('当前未绑定微信账号'),
-      extra: t('绑定'),
+      title: t('Bind WeChat'),
+      description: t('Not bound to a WeChat account.'),
+      extra: t('Bind'),
       avatar: 'ant-design:wechat-filled',
       color: '#2aae67',
     },
     {
       key: '3',
-      title: t('绑定钉钉'),
-      description: t('当前未绑定钉钉账号'),
-      extra: t('绑定'),
+      title: t('Bind DingTalk'),
+      description: t('Not bound to a DingTalk account.'),
+      extra: t('Bind'),
       avatar: 'ant-design:dingtalk-circle-filled',
       color: '#1890ff',
     },
