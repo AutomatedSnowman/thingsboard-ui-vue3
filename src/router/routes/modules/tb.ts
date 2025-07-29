@@ -91,7 +91,7 @@ const tb: AppRouteModule = {
         orderNo: 40,
         icon: 'ant-design:database-outlined',
         tabIcon: 'ant-design:team-outlined',
-        title: t('设备管理'),
+        title: t('Device Management'),
         single: false,
         authorities: [Authority.TENANT_ADMIN, Authority.CUSTOMER_USER],
       },
@@ -115,7 +115,7 @@ const tb: AppRouteModule = {
           meta: {
             icon: 'ant-design:project-outlined',
             tabIcon: 'ant-design:project-outlined',
-            title: t('产品'),
+            title: t('Products'),
             authorities: [Authority.TENANT_ADMIN],
           },
         },
