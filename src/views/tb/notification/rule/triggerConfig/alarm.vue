@@ -14,10 +14,10 @@ import { ALARM_SEVERITY_OPTIONS, ALARM_STATUS_OPTIONS } from '/@/enums/alarmEnum
 const { t } = useI18n('tb');
 
 const notifyOnOptions = [
-  { value: 'CREATED', label: '报警创建' },
-  { value: 'SEVERITY_CHANGED', label: '等级改变' },
-  { value: 'ACKNOWLEDGED', label: '已确认' },
-  { value: 'CLEARED', label: '已清除' },
+  { value: 'CREATED', label: 'Created' },
+  { value: 'SEVERITY_CHANGED', label: 'Severity Changed' },
+  { value: 'ACKNOWLEDGED', label: 'Acknowledged' },
+  { value: 'CLEARED', label: 'Cleared' },
 ];
 
 
@@ -25,32 +25,32 @@ const notifyOnOptions = [
 const inputFormSchemas: FormSchema[] = [
   { field: 'triggerConfig.triggerType', component: 'Input', defaultValue: NotificationType.ALARM, show: false },
   {
-    label: t('报警类型'),
-    subLabel: t('不选择为任意等级'),
+    label: t('Alarm Type'),
+    subLabel: t('No Level Selected'),
     field: 'triggerConfig.alarmTypes',
     component: 'Select',
     componentProps: {
       options: [],
       mode: 'tags',
       open: false,
-      placeholder: '任意报警类型'
+      placeholder: 'Any Alarm Type'
     },
     colProps: { lg: 24, md: 24 },
   },
   {
-    label: t('报警等级'),
-    subLabel: t('不选择为任意等级'),
+    label: t('Alarm Level'),
+    subLabel: t('No Level Selected'),
     field: 'triggerConfig.alarmSeverities',
     component: 'Select',
     componentProps: {
       mode: 'multiple',
       options: ALARM_SEVERITY_OPTIONS,
-      placeholder: '任意报警等级'
+      placeholder: 'Any Alarm Level'
     },
     colProps: { lg: 24, md: 24 },
   },
   {
-    label: t('何时报警'),
+    label: t('Alarm Notification'),
     field: 'triggerConfig.notifyOn',
     component: 'Select',
     defaultValue: ['CREATED'],
@@ -62,8 +62,8 @@ const inputFormSchemas: FormSchema[] = [
     colProps: { lg: 24, md: 24 },
   },
   {
-    label: t('停止通知'),
-    subLabel: t('不选择为任意状态'),
+    label: t('Stop Notifications'),
+    subLabel: t('No State Selected'),
     field: 'triggerConfig.alarmStatuses',
     component: 'Select',
     componentProps: {
@@ -74,7 +74,7 @@ const inputFormSchemas: FormSchema[] = [
   },
 
   {
-    label: t('描述信息'),
+    label: t('Description'),
     field: 'additionalConfig.description',
     component: 'InputTextArea',
     componentProps: {
