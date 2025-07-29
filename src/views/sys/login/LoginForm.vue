@@ -89,7 +89,7 @@
       </ACol>
     </ARow>
 
-    <Divider class="enter-x">{{ t('Sign in Methods') }}</Divider>
+    <Divider class="enter-x">{{ t('Sign In With') }}</Divider>
 
     <div class="enter-x flex justify-evenly" :class="`${prefixCls}-sign-in-way`">
       <Icon icon="gitee.svg" size="24" @click="handle2Gitee" />
