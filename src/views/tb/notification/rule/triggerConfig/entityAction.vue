@@ -3,17 +3,17 @@
     <BasicForm @register="registerForm">
       <template #created="{ model, field }">
         <div class="flex items-center">
-          <Switch size="small" v-model:checked="model[field]" /> <span class="ml-2">创建后</span>
+          <Switch size="small" v-model:checked="model[field]" /> <span class="ml-2">After Creation</span>
         </div>
       </template>
       <template #updated="{ model, field }">
         <div class="flex items-center">
-          <Switch size="small" v-model:checked="model[field]" /> <span class="ml-2">更新后</span>
+          <Switch size="small" v-model:checked="model[field]" /> <span class="ml-2">After Update</span>
         </div>
       </template>
       <template #deleted="{ model, field }">
         <div class="flex items-center">
-          <Switch size="small" v-model:checked="model[field]" /> <span class="ml-2">删除后</span>
+          <Switch size="small" v-model:checked="model[field]" /> <span class="ml-2">After Deletion</span>
         </div>
       </template>
     </BasicForm>
@@ -56,7 +56,7 @@ const entityTypeOptions = ENTITY_TYPE_OPTIONS.filter(item => {
 const inputFormSchemas: FormSchema[] = [
   { field: 'triggerConfig.triggerType', component: 'Input', defaultValue: NotificationType.DEVICE_ACTIVITY, show: false },
   {
-    label: t('实体类型'),
+    label: t('Entity Type'),
     field: 'triggerConfig.entityTypes',
     component: 'Select',
     componentProps: {
@@ -68,7 +68,7 @@ const inputFormSchemas: FormSchema[] = [
   },
 
   {
-    label: t('状态'),
+    label: t('State'),
     labelWidth: 120,
     field: 'triggerConfig.created',
     component: 'Switch',
@@ -94,7 +94,7 @@ const inputFormSchemas: FormSchema[] = [
     colProps: { lg: 8, md: 8 },
   },
   {
-    label: t('描述信息'),
+    label: t('Description'),
     field: 'additionalConfig.description',
     component: 'InputTextArea',
     componentProps: {
