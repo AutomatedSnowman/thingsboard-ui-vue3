@@ -14,8 +14,8 @@ import { ALARM_SEVERITY_OPTIONS, ALARM_STATUS_OPTIONS } from '/@/enums/alarmEnum
 const { t } = useI18n('tb');
 
 const notifyOnOptions = [
-  { value: 'ASSIGNED', label: '分配时' },
-  { value: 'UNASSIGNED', label: '取消分配时' },
+  { value: 'ASSIGNED', label: 'Assigned' },
+  { value: 'UNASSIGNED', label: 'Unassigned' },
 ];
 
 
@@ -23,45 +23,45 @@ const notifyOnOptions = [
 const inputFormSchemas: FormSchema[] = [
   { field: 'triggerConfig.triggerType', component: 'Input', defaultValue: NotificationType.ALARM_ASSIGNMENT, show: false },
   {
-    label: t('报警类型'),
-    subLabel: t('不选择为任意等级'),
+    label: t('Alarm Type'),
+    subLabel: t('No Level Selected'),
     field: 'triggerConfig.alarmTypes',
     component: 'Select',
     componentProps: {
       options: [],
       mode: 'tags',
       open: false,
-      placeholder: '任意报警类型'
+      placeholder: 'Any Alarm Type'
     },
     colProps: { lg: 24, md: 24 },
   },
   {
-    label: t('报警等级'),
-    subLabel: t('不选择为任意等级'),
+    label: t('Alarm Level'),
+    subLabel: t('No Level Selected'),
     field: 'triggerConfig.alarmSeverities',
     component: 'Select',
     componentProps: {
       mode: 'multiple',
       options: ALARM_SEVERITY_OPTIONS,
-      placeholder: '任意报警等级'
+      placeholder: 'Any Alarm Level'
     },
     colProps: { lg: 24, md: 24 },
   },
   {
-    label: t('报警状态'),
-    subLabel: t('不选择为任意状态'),
+    label: t('Alarm Status'),
+    subLabel: t('No State Selected'),
     field: 'triggerConfig.alarmStatuses',
     component: 'Select',
     componentProps: {
       mode: 'multiple',
       options: ALARM_STATUS_OPTIONS,
-      placeholder: '任意报警状态'
+      placeholder: 'Any Alarm Status'
     },
 
     colProps: { lg: 24, md: 24 },
   },
   {
-    label: t('何时报警'),
+    label: t('Alarm Notification'),
     field: 'triggerConfig.notifyOn',
     component: 'Select',
     defaultValue: ['ASSIGNED'],
@@ -74,7 +74,7 @@ const inputFormSchemas: FormSchema[] = [
   },
 
   {
-    label: t('描述信息'),
+    label: t('Description'),
     field: 'additionalConfig.description',
     component: 'InputTextArea',
     componentProps: {
