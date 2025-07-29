@@ -5,7 +5,7 @@ import { userListData } from '/@/api/sys/user';
 const { t } = useI18n('sys.empUser');
 
 const modalProps = {
-  title: t('用户选择'),
+  title: t('User Selection'),
 };
 
 const searchForm: FormProps = {
@@ -13,17 +13,17 @@ const searchForm: FormProps = {
   labelWidth: 60,
   schemas: [
     {
-      label: t('账号'),
+      label: t('Account'),
       field: 'loginCode',
       component: 'Input',
     },
     {
-      label: t('昵称'),
+      label: t('Username'),
       field: 'userName',
       component: 'Input',
     },
     {
-      label: t('状态'),
+      label: t('Status'),
       field: 'status',
       component: 'Select',
       componentProps: {
@@ -36,17 +36,17 @@ const searchForm: FormProps = {
       component: 'None',
     },
     {
-      label: t('手机'),
+      label: t('Mobile Phone Number'),
       field: 'mobile',
       component: 'Input',
     },
     {
-      label: t('邮箱'),
+      label: t('Email Address'),
       field: 'email',
       component: 'Input',
     },
     {
-      label: t('电话'),
+      label: t('Phone Number'),
       field: 'phone',
       component: 'Input',
     },
@@ -55,7 +55,7 @@ const searchForm: FormProps = {
 
 const tableColumns: BasicColumn[] = [
   {
-    title: t('登录账号'),
+    title: t('Login Account'),
     dataIndex: 'loginCode',
     key: 'a.login_code',
     sorter: true,
@@ -63,49 +63,49 @@ const tableColumns: BasicColumn[] = [
     slot: 'firstColumn',
   },
   {
-    title: t('用户昵称'),
+    title: t('Username'),
     dataIndex: 'userName',
     key: 'a.user_name',
     sorter: true,
     width: 100,
   },
   {
-    title: t('员工姓名'),
+    title: t('Name'),
     dataIndex: 'refName',
     key: 'a.ref_name',
     sorter: true,
     width: 100,
   },
   {
-    title: t('电子邮箱'),
+    title: t('Email'),
     dataIndex: 'email',
     key: 'a.email',
     sorter: true,
     width: 130,
   },
   {
-    title: t('手机号码'),
+    title: t('Mobile Phone Number'),
     dataIndex: 'mobile',
     key: 'a.mobile',
     sorter: true,
     width: 130,
   },
   {
-    title: t('办公电话'),
+    title: t('Phone Number'),
     dataIndex: 'phone',
     key: 'a.phone',
     sorter: true,
     width: 130,
   },
   {
-    title: t('更新时间'),
+    title: t('Update Time'),
     dataIndex: 'updateDate',
     key: 'a.update_date',
     sorter: true,
     width: 130,
   },
   {
-    title: t('状态'),
+    title: t('Status'),
     dataIndex: 'status',
     key: 'a.status',
     sorter: true,
