@@ -13,11 +13,11 @@
             @click="handleForm({})"
             v-show="hasPermission(Authority.TENANT_ADMIN)"
           >
-            <Icon icon="i-fluent:add-12-filled" /> 新增设备
+            <Icon icon="i-fluent:add-12-filled" /> Added Equipment
           </a-button>
           <a-input
             v-model:value="searchParam.textSearch"
-            placeholder="输入搜索内容"
+            placeholder="Search..."
             allow-clear
             @change="reload"
             style="width: 240px"
@@ -34,8 +34,8 @@
         </a>
       </template>
       <template #active="{ record }">
-        <Tag v-if="record.active == true" color="success">在线</Tag>
-        <Tag v-if="record.active == false" color="error">离线</Tag>
+        <Tag v-if="record.active == true" color="success">Online</Tag>
+        <Tag v-if="record.active == false" color="error">Offline</Tag>
       </template>
       <template #gateway="{ record }">
         <Checkbox :checked="record.additionalInfo?.gateway || false" />
@@ -97,7 +97,7 @@
   const { createConfirm, showMessage } = useMessage();
 
   const getTitle = {
-    value: '设备',
+    value: 'Device',
   };
 
   const deviceProfileList = ref<any[]>([]);
@@ -107,7 +107,7 @@
   });
   const tableColumns: BasicColumn[] = [
     {
-      title: t('名称'),
+      title: t('Name'),
       dataIndex: 'name',
       key: 'name',
       sorter: true,
@@ -117,7 +117,7 @@
       ellipsis: false,
     },
     {
-      title: '产品',
+      title: 'Device Profile',
       dataIndex: 'deviceProfileName',
       key: 'deviceProfileId',
       align: 'left',
@@ -126,14 +126,14 @@
       filters: deviceProfileList.value.map((item) => ({ text: item.name, value: item.id.id })),
     },
     {
-      title: '标签',
+      title: 'Label',
       dataIndex: 'label',
       key: 'label',
       align: 'left',
       ellipsis: false,
     },
     {
-      title: '客户',
+      title: 'Customer Name',
       dataIndex: 'customerTitle',
       key: 'customerTitle',
       align: 'left',
@@ -141,7 +141,7 @@
       ifShow: hasPermission(Authority.TENANT_ADMIN),
     },
     {
-      title: '状态',
+      title: 'State',
       dataIndex: 'active',
       key: 'active',
       align: 'center',
@@ -149,12 +149,12 @@
       slot: 'active',
       filterMultiple: false,
       filters: [
-        { text: '在线', value: 'true' },
-        { text: '离线', value: 'false' },
+        { text: 'Online', value: 'true' },
+        { text: 'Offline', value: 'false' },
       ],
     },
     {
-      title: '公开',
+      title: 'Visibility',
       dataIndex: 'customerIsPublic',
       key: 'customerIsPublic',
       width: 80,
@@ -163,7 +163,7 @@
       ifShow: hasPermission(Authority.TENANT_ADMIN),
     },
     {
-      title: '网关',
+      title: 'Gateway',
       dataIndex: 'gateway',
       key: 'gateway',
       width: 80,
@@ -171,7 +171,7 @@
       slot: 'gateway',
     },
     {
-      title: t('创建时间'),
+      title: t('Creation Time'),
       dataIndex: 'createdTime',
       key: 'createdTime',
       format: 'date|YYYY-MM-DD HH:mm:ss',
@@ -186,31 +186,31 @@
     actions: (record: Recordable) => [
       {
         icon: 'ant-design:share-alt-outlined',
-        title: t('设为公开'),
+        title: t('Set as public'),
         ifShow: hasPermission(Authority.TENANT_ADMIN) && !!!record.customerTitle,
         onClick: handleAssignToPublic.bind(this, { ...record }),
       },
       {
         icon: 'ant-design:contacts-outlined',
-        title: t('分配客户'),
+        title: t('Assign Customers'),
         ifShow: hasPermission(Authority.TENANT_ADMIN) && !!!record.customerTitle,
         onClick: handleAssignCustomer.bind(this, { ...record }),
       },
       {
         icon: 'ant-design:rollback-outlined',
-        title: t('取消分配客户'),
+        title: t('Unassign from customer'),
         ifShow: hasPermission(Authority.TENANT_ADMIN) && !!record.customerTitle,
         onClick: handleUnAssignFromCustomer.bind(this, { ...record }),
       },
       {
         icon: 'ant-design:safety-outlined',
-        title: t('管理凭证'),
+        title: t('Credentials'),
         onClick: handleCredentials.bind(this, { ...record }),
       },
       {
         icon: 'ant-design:delete-outlined',
         color: 'error',
-        title: t('删除设备配置'),
+        title: t('Delete Device Configuration'),
         ifShow: hasPermission(Authority.TENANT_ADMIN),
         onClick: handleDelete.bind(this, { ...record }),
       },
@@ -253,7 +253,7 @@
     }).then((result) => {
       deviceProfileList.value = result.data;
       updateColumn({
-        title: '产品',
+        title: 'Profile',
         dataIndex: 'deviceProfileName',
         key: 'deviceProfileId',
         align: 'left',
@@ -273,10 +273,10 @@
   async function handleDelete(record: Recordable) {
     createConfirm({
       iconType: 'error',
-      title: `确定删除设备[${record.name}]吗？`,
-      content: '请注意：确认后，设备和所有相关数据将不可恢复。',
+      title: `Delete device[${record.name}]？`,
+      content: 'WARNING: After deletion, all device data will be unrecoverable.',
       centered: false,
-      okText: '删除',
+      okText: 'Delete',
       okButtonProps: {
         type: 'primary',
         danger: true,
@@ -284,7 +284,7 @@
       onOk: async () => {
         try {
           await deleteDevice(record.id.id);
-          showMessage('删除设备配置成功！');
+          showMessage('Device Deleted Successfully！');
         } catch (error: any) {
           console.log(error);
         } finally {
@@ -301,17 +301,17 @@
   function handleAssignToPublic(record: Recordable) {
     createConfirm({
       iconType: 'info',
-      title: `确定要将设备[${record.name}]设为公开吗？`,
-      content: '请注意：确认后，设备及其所有数据将被公开并被他人访问。',
+      title: `Are you sure you want to set [${record.name}] public？`,
+      content: 'CAUTION: After confirmation, device records will be publicly accessible!',
       centered: false,
-      okText: '确认',
+      okText: 'Confirm',
       okButtonProps: {
         type: 'primary',
       },
       onOk: async () => {
         try {
           await assignDeviceToPublicCustomer(record.id.id);
-          showMessage('设备设置为公开成功！');
+          showMessage('Success！');
         } catch (error: any) {
           console.log(error);
         } finally {
@@ -328,17 +328,17 @@
   function handleUnAssignFromCustomer(record: Recordable) {
     createConfirm({
       iconType: 'info',
-      title: `确定要将设备[${record.name}]设为私有吗？`,
-      content: '请注意：确认后，设备及其所有数据将被私有化，无法被他人访问。',
+      title: `Are you sure yo want to set [${record.name}] to private？`,
+      content: 'After confirmation, device data will be private.',
       centered: false,
-      okText: '确认',
+      okText: 'Confirm',
       okButtonProps: {
         type: 'primary',
       },
       onOk: async () => {
         try {
           await unAssignDeviceFromCustomer(record.id.id);
-          showMessage('设备设为私有成功！');
+          showMessage('Success！');
         } catch (error: any) {
           console.log(error);
         } finally {
