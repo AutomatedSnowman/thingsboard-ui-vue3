@@ -4,7 +4,7 @@
       <template #toolbar>
         <Tooltip placement="bottom">
           <template #title>
-            <span>{{ t('清除所有事件') }}</span>
+            <span>{{ t('Clear Events') }}</span>
           </template>
           <Icon icon="ant-design:delete-outlined" :size="20" class="cursor-pointer" :style="{ color: 'red' }"
             @click="handelClear()" v-if="hasPermission(Authority.TENANT_ADMIN)" />
@@ -64,12 +64,12 @@ const { createConfirm, showMessage } = useMessage();
 
 
 const rangePresets = ref([
-  { label: '今天', value: [dayjs().startOf('D'), dayjs()] },
-  { label: '最近1小时', value: [dayjs().subtract(1, 'hour'), dayjs()] },
-  { label: '最近6小时', value: [dayjs().subtract(6, 'hour'), dayjs()] },
-  { label: '最近1天', value: [dayjs().subtract(1, 'day').startOf('D'), dayjs()] },
-  { label: '最近3天', value: [dayjs().subtract(2, 'day').startOf('D'), dayjs()] },
-  { label: '最近7天', value: [dayjs().subtract(6, 'day').startOf('D'), dayjs()] },
+  { label: 'Today', value: [dayjs().startOf('D'), dayjs()] },
+  { label: 'Last Hour', value: [dayjs().subtract(1, 'hour'), dayjs()] },
+  { label: 'Last 6 Hours', value: [dayjs().subtract(6, 'hour'), dayjs()] },
+  { label: 'Last Day', value: [dayjs().subtract(1, 'day').startOf('D'), dayjs()] },
+  { label: 'Last 2 Days', value: [dayjs().subtract(2, 'day').startOf('D'), dayjs()] },
+  { label: 'Last Week', value: [dayjs().subtract(6, 'day').startOf('D'), dayjs()] },
 ]);
 
 const entityTypeOptions = computed(() => {
@@ -94,7 +94,7 @@ const searchParam = reactive({
 
 const tableColumns = computed(() => {
   const columns: BasicColumn[] = [{
-    title: t('事件时间'),
+    title: t('Event Time'),
     dataIndex: 'createdTime',
     key: 'createdTime',
     format: 'date|YYYY-MM-DD HH:mm:ss',
@@ -104,7 +104,7 @@ const tableColumns = computed(() => {
     align: 'center',
   },
   {
-    title: t('服务器'),
+    title: t('Server'),
     dataIndex: 'body.server',
     key: 'server',
     align: 'center',
@@ -116,13 +116,13 @@ const tableColumns = computed(() => {
     case EventType.ERROR:
       columns.push(
         {
-          title: t('方法'),
+          title: t('Method'),
           dataIndex: 'body.method',
           key: 'method',
           align: 'left',
         },
         {
-          title: t('错误'),
+          title: t('Error'),
           dataIndex: 'body.errorStr',
           key: 'errorStr',
           align: 'left',
@@ -132,20 +132,20 @@ const tableColumns = computed(() => {
     case EventType.LC_EVENT:
       columns.push(
         {
-          title: t('事件'),
+          title: t('Event'),
           dataIndex: 'body.event',
           key: 'event',
           align: 'left',
         },
         {
-          title: t('状态'),
+          title: t('Status'),
           dataIndex: 'body.status',
           key: 'status',
           align: 'left',
           width: 80,
         },
         {
-          title: t('错误'),
+          title: t('Error'),
           dataIndex: 'body.errorStr',
           key: 'errorStr',
           align: 'left',
@@ -155,13 +155,13 @@ const tableColumns = computed(() => {
     case EventType.STATS:
       columns.push(
         {
-          title: t('消息处理'),
+          title: t('Message Processing'),
           dataIndex: 'body.messagesProcessed',
           key: 'messagesProcessed',
           align: 'center',
         },
         {
-          title: t('错误发生'),
+          title: t('Error Occurred'),
           dataIndex: 'body.errorsOccurred',
           key: 'errorsOccurred',
           align: 'center',
@@ -170,13 +170,13 @@ const tableColumns = computed(() => {
     case EventType.DEBUG_RULE_CHAIN:
       columns.push(
         {
-          title: t('消息'),
+          title: t('News'),
           dataIndex: 'body.message',
           key: 'message',
           align: 'left',
         },
         {
-          title: t('错误'),
+          title: t('Error'),
           dataIndex: 'body.errorStr',
           key: 'errorStr',
           align: 'center',
@@ -186,37 +186,37 @@ const tableColumns = computed(() => {
     case EventType.DEBUG_RULE_NODE:
       columns.push(
         {
-          title: t('类型'),
+          title: t('Type'),
           dataIndex: 'body.msgDirectionType',
           key: 'msgDirectionType',
           align: 'center',
         },
         {
-          title: t('实体类型'),
+          title: t('Entity Type'),
           dataIndex: 'body.entityType',
           key: 'entityType',
           align: 'center',
         },
         {
-          title: t('实体ID'),
+          title: t('Entity ID'),
           dataIndex: 'body.entityId',
           key: 'entityId',
           align: 'center',
         },
         {
-          title: t('消息ID'),
+          title: t('Message ID'),
           dataIndex: 'body.msgId',
           key: 'msgId',
           align: 'center',
         },
         {
-          title: t('消息类型'),
+          title: t('Message Type'),
           dataIndex: 'body.msgType',
           key: 'msgType',
           align: 'center',
         },
         {
-          title: t('关联类型'),
+          title: t('Relation Type'),
           dataIndex: 'body.relationType',
           key: 'relationType',
           align: 'center',
@@ -263,10 +263,10 @@ async function fetchData(param: any) {
 function handelClear() {
   createConfirm({
     iconType: 'error',
-    title: '清除所有事件',
-    content: '确除清空所有事件？',
+    title: 'Clear All Events',
+    content: 'Clear All Events？',
     centered: false,
-    okText: '确认',
+    okText: 'Confirm',
     okButtonProps: {
       type: 'primary',
       danger: true,
@@ -282,7 +282,7 @@ function handelClear() {
           },
           unref(eventFilter),
         );
-        showMessage('清空所有事件成功！');
+        showMessage('Events Cleared Successfully！');
       } catch (error: any) {
         console.log(error);
       } finally {
