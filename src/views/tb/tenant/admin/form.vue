@@ -6,10 +6,10 @@
       </template>
       <BasicForm @register="registerForm">
         <template #defaultDashboardFullscreen="{ model, field }">
-          <Checkbox v-model:checked="model[field]">始终全屏</Checkbox>
+          <Checkbox v-model:checked="model[field]">Full Screen</Checkbox>
         </template>
         <template #homeDashboardHideToolbar="{ model, field }">
-          <Checkbox v-model:checked="model[field]">隐藏工具栏</Checkbox>
+          <Checkbox v-model:checked="model[field]">Hide Toolbar</Checkbox>
         </template>
       </BasicForm>
     </BasicModal>
@@ -37,7 +37,7 @@
   const record = ref<UserInfo>({} as UserInfo);
   const getTitle = computed(() => ({
     icon: meta.icon || 'ant-design:book-outlined',
-    value: record.value.id?.id ? t('编辑租户管理员') : t('新增租户管理员'),
+    value: record.value.id?.id ? t('Edit Tenant Admin') : t('Add Tenant Admin'),
   }));
   
   
@@ -46,16 +46,16 @@
     { field: 'authority', component: 'Input', show: false },
     { field: 'tenantId', component: 'Input', show: false },
     {
-      label: t('邮箱地址'),
+      label: t('Email Address'),
       field: 'email',
       component: 'Input',
       componentProps: {
         maxlength: 100,
       },
-      rules: [{ required: true, message: t('邮箱地址必须输入') }, { type: 'email', message: t('请填写正确的邮箱地址') }],
+      rules: [{ required: true, message: t('Email Address must be Entered!') }, { type: 'email', message: t('Please enter a valid eamil address.') }],
     },
     {
-      label: t('用户姓名'),
+      label: t('First Name'),
       field: 'firstName',
       component: 'Input',
       componentProps: {
@@ -64,7 +64,7 @@
       required: true,
     },
     {
-      label: t('用户职务'),
+      label: t('Last Name'),
       field: 'lastName',
       component: 'Input',
       componentProps: {
@@ -72,18 +72,18 @@
       },
     },
     {
-      label: t('手机号码'),
+      label: t('Phone Number'),
       field: 'phone',
       component: 'Input',
       componentProps: {
         maxlength: 100,
       },
       required: true,
-      rules: [{ required: true, message: t('手机号码必须输入') }, { pattern: /^1[3-9]\d{9}$/, message: t('请填写正确的手机号码') }],
+      rules: [{ required: false, message: t('Phone number must be entered!') }, { pattern: /^1[3-9]\d{9}$/, message: t('Please enter a valid phone number.') }],
     },
   
     {
-      label: t('描述信息'),
+      label: t('Additional Info'),
       field: 'additionalInfo.description',
       component: 'InputTextArea',
       componentProps: {
@@ -91,17 +91,17 @@
       },
     },
     {
-      label: t('激活方式'),
+      label: t('Send Activation Email'),
       field: 'sendActivationMail',
       component: 'Select',
       defaultValue: 'false',
       componentProps: {
-        options: [{ label: '显示激活链接', value: 'false' }, { label: '发送激活邮件', value: 'true' }]
+        options: [{ label: 'Show Activation Link', value: 'false' }, { label: 'Send Activation Email', value: 'true' }]
       },
       ifShow: () => !record.value?.id?.id
     },
     {
-      label: t('默认仪表盘'),
+      label: t('Default Dashboard'),
       field: 'additionalInfo.defaultDashboardId',
       component: 'Select',
       componentProps: {
@@ -122,7 +122,7 @@
       ifShow: () => !!record.value?.id?.id
     },
     {
-      label: t('首页仪表盘'),
+      label: t('Home Dashboard'),
       field: 'additionalInfo.homeDashboardId',
       component: 'Select',
       componentProps: {
@@ -171,18 +171,18 @@
   
       // console.log('submit', params, data, record);
       const res = await saveUser({ ...data, id: record.value.id }, data.sendActivationMail);
-      showMessage(`${record.value.id?.id ? '编辑' : '新增'}租户管理员成功！`);
+      showMessage(`${record.value.id?.id ? 'Edit' : 'New'}Tenant Admin Successfully`);
       if (!record.value.id?.id && data.sendActivationMail == 'false') {
         const activationLink = await getActivationLink(res.id.id);
         createConfirm(
           {
             iconType: 'success',
             icon: () => h(Icon, { icon: 'ant-design:info-circle-filled', style: { color: 'blue' } },),
-            title: '用户激活链接',
+            title: 'User Activation Link',
             content: h('a', { href: activationLink, target: '_blank' }, `${activationLink}`),
             width: '50%',
-            okText: '确认',
-            cancelText: '复制',
+            okText: 'Confirm',
+            cancelText: 'Copy',
             maskClosable: false,
             onCancel: () => copyToClipboard(activationLink, '复制用户激活链接成功！')
           });
