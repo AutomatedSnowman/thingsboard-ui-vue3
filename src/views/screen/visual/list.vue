@@ -9,11 +9,11 @@
       <template #tableTitle>
         <div class="space-x-2">
           <a-button type="primary" @click="handleForm({})">
-            <Icon icon="i-fluent:add-12-filled" /> 新增数据大屏
+            <Icon icon="i-fluent:add-12-filled" /> Large Dashboard
           </a-button>
           <a-input
             v-model:value="searchParam.textSearch"
-            placeholder="输入搜索内容"
+            placeholder="Search..."
             allow-clear
             @change="reload"
             style="width: 240px"
@@ -35,8 +35,8 @@
         </Space>
       </template>
       <template #published="{ record }">
-        <Tag v-if="record.published == true" color="success">已发布</Tag>
-        <Tag v-if="record.published == false" color="warning">未发布</Tag>
+        <Tag v-if="record.published == true" color="success">Published</Tag>
+        <Tag v-if="record.published == false" color="warning">Unpublished</Tag>
       </template>
       <template #itemContainer="{ record }">
         <ImageCard
@@ -86,7 +86,7 @@
   const { hasPermission } = usePermission();
 
   const getTitle = {
-    value: '数据大屏',
+    value: 'Large Dashboard',
   };
 
   const searchParam = reactive({
@@ -94,7 +94,7 @@
   });
   const tableColumns: BasicColumn[] = [
     {
-      title: t('名称'),
+      title: t('Name'),
       dataIndex: 'title',
       key: 'title',
       sorter: true,
@@ -103,7 +103,7 @@
       slot: 'firstColumn',
     },
     {
-      title: t('状态'),
+      title: t('State'),
       dataIndex: 'published',
       key: 'published',
       align: 'center',
@@ -116,7 +116,7 @@
       ],
     },
     {
-      title: t('创建时间'),
+      title: t('Creation Time'),
       dataIndex: 'createdTime',
       key: 'createdTime',
       format: 'date|YYYY-MM-DD HH:mm:ss',
@@ -131,35 +131,35 @@
     actions: (record: Recordable) => [
       {
         icon: 'i-ant-design:safety-outlined',
-        title: t('修改信息'),
+        title: t('Modify'),
         ifShow: hasPermission(Authority.TENANT_ADMIN),
         onClick: handleEditInfo.bind(this, { ...record }),
       },
       {
         icon: 'i-clarity:note-edit-line',
         color: 'success',
-        title: t('编辑大屏'),
+        title: t('Edit Dashboard'),
         ifShow: hasPermission(Authority.TENANT_ADMIN),
         onClick: handleEdit.bind(this, { ...record }),
       },
       {
         icon: 'i-ant-design:send-outlined',
         color: 'success',
-        title: t('发布大屏'),
+        title: t('Save Dashboard'),
         ifShow: !record.published && hasPermission(Authority.TENANT_ADMIN),
         onClick: handlePublish.bind(this, { ...record }),
       },
       {
         icon: 'i-ant-design:send-outlined',
         color: 'warning',
-        title: t('取消发布'),
+        title: t('Cancel Save'),
         ifShow: record.published && hasPermission(Authority.TENANT_ADMIN),
         onClick: handleUnPublish.bind(this, { ...record }),
       },
       {
         icon: 'ant-design:delete-outlined',
         color: 'error',
-        title: t('删除大屏'),
+        title: t('Delete Dashboard'),
         onClick: handleDelete.bind(this, { ...record }),
       },
     ],
@@ -192,10 +192,10 @@
   async function handleDelete(record: Recordable) {
     createConfirm({
       iconType: 'error',
-      title: `确定删除数据大屏[${record.name}]吗？`,
-      content: '请注意：确认后，数据大屏和所有相关数据将不可恢复。',
+      title: `Are you sure you want to delete [${record.name}]？`,
+      content: 'WARNING: Are you sure you want to delete? All data will be unrecoverable.',
       centered: false,
-      okText: '删除',
+      okText: 'Delete',
       okButtonProps: {
         type: 'primary',
         danger: true,
@@ -203,7 +203,7 @@
       onOk: async () => {
         try {
           await deleteTbVisual(record.id.id);
-          showMessage('删除数据大屏成功！');
+          showMessage('Success！');
         } catch (error: any) {
           console.log(error);
         } finally {
@@ -237,24 +237,24 @@
       iconType: 'success',
       icon: () => h(Icon, { icon: 'ant-design:info-circle-filled', style: { color: 'blue' } }),
       closable: true,
-      title: '发布大屏',
-      content: `预览地址： ${previewUrl}`,
+      title: 'Save Dashboard',
+      content: `Preview Address： ${previewUrl}`,
       width: '50%',
-      okText: '确认发布',
-      cancelText: '复制',
+      okText: 'Save',
+      cancelText: 'Copy',
       maskClosable: false,
-      onCancel: () => copyToClipboard(previewUrl, '复制预览地址成功！'),
+      onCancel: () => copyToClipboard(previewUrl, 'Copied！'),
       onOk: () => handleSavePublush(record, true),
     });
   }
   function handleUnPublish(record: Recordable) {
     createConfirm({
       iconType: 'error',
-      title: '取消发布大屏',
-      content: `确认取消发布大屏？`,
+      title: 'Cancel Save',
+      content: `Confirm Cancellation？`,
       width: '50%',
-      okText: '取消发布',
-      cancelText: '关闭',
+      okText: 'Cancel Save',
+      cancelText: 'Closure',
       maskClosable: false,
       onOk: () => handleSavePublush(record, false),
     });
@@ -267,13 +267,13 @@
   async function handleSavePublush(record: Recordable, publish: boolean) {
     const tbVisualInfo = await getTbVisualInfoById(record.id.id);
     if (isEmpty(tbVisualInfo.content)) {
-      return showMessage('请先编辑大屏！');
+      return showMessage('Please edit the record first！');
     } else {
       const res = saveTbVisual({
         ...tbVisualInfo,
         published: publish,
       });
-      showMessage(`${publish ? '发布' : '取消发布'}成功！`);
+      showMessage(`${publish ? '发布' : 'Cancel Release'}Save！`);
       handleSuccess();
     }
   }
