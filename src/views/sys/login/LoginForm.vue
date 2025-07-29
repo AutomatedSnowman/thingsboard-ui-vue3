@@ -81,13 +81,13 @@
         <Button block @click="setLoginState(LoginStateEnum.QR_CODE)">
           {{ t('sys.login.qrSignInFormTitle') }}
         </Button>
-      </ACol> -->
+      </ACol> 
       <ACol :md="7" :xs="24">
         <Button block @click="setLoginState(LoginStateEnum.REGISTER)">
           {{ t('sys.login.registerButton') }}
         </Button>
       </ACol>
-    </ARow>
+    </ARow> 
 
     <Divider class="enter-x">{{ t('Sign In With') }}</Divider>
 
@@ -97,7 +97,7 @@
       <Icon icon="ant-design:github-filled" size="28" @click="handle2Github" />
     </div>
   </Form>
-</template>
+</template> -->
 <script lang="ts" setup>
   import { reactive, ref, toRaw, unref, computed, onMounted } from 'vue';
 
@@ -225,26 +225,26 @@
     }
   }
 
-  function handle2Gitee() {
+  //function handle2Gitee() {
     
-  openWindow(SITE_URL)
+  //openWindow(SITE_URL)
 
-}
-function handle2Github() {
+//}
+//function handle2Github() {
 
-  openWindow(GITHUB_URL)
-}
+  //openWindow(GITHUB_URL)
+//}
 
-function handle2Wechat() {
-  showMessageModal(
-    {
-      icon: null,
-      content: `<img style="width:100%" src='` + weixinUrl + `'/>`,
-      closable: true,
-      footer: null,
-    }
-  )
-}
+//function handle2Wechat() {
+ // showMessageModal(
+  //  {
+   //   icon: null,
+    //  content: `<img style="width:100%" src='` + weixinUrl + `'/>`,
+  //    closable: true,
+//      footer: null,
+    //}
+  //)
+//}
 </script>
 <style>
 </style>
