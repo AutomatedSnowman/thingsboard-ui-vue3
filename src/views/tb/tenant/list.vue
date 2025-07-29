@@ -2,16 +2,16 @@
   <div class="tenant-list">
     <BasicTable @register="registerTable">
       <template #headerTop>
-        <div class="text-lg font-bold my-2"> 租户 </div>
+        <div class="text-lg font-bold my-2"> Tenants </div>
       </template>
       <template #tableTitle>
         <div class="space-x-2">
           <a-button type="primary" @click="handleForm({})">
-            <Icon icon="i-fluent:add-12-filled" /> 新增租户
+            <Icon icon="i-fluent:add-12-filled" /> Create Tenant
           </a-button>
           <a-input
             v-model:value="searchParam.textSearch"
-            placeholder="输入搜索内容"
+            placeholder="Enter your search parameter"
             allow-clear
             @change="reload"
             style="width: 240px"
@@ -69,7 +69,7 @@
   });
   const tableColumns: BasicColumn[] = [
     {
-      title: t('租户名称'),
+      title: t('Tenant Name'),
       dataIndex: 'title',
       key: 'title',
       sorter: true,
@@ -79,14 +79,14 @@
       slot: 'firstColumn',
     },
     {
-      title: t('租户配置'),
+      title: t('Tenant Configuration'),
       dataIndex: 'tenantProfileName',
       key: 'tenantProfileName',
       width: 230,
       align: 'center',
     },
     {
-      title: t('城市'),
+      title: t('City'),
       dataIndex: 'city',
       key: 'city',
       width: 140,
@@ -95,21 +95,21 @@
       slot: 'city',
     },
     {
-      title: t('电话'),
+      title: t('Phone'),
       dataIndex: 'phone',
       key: 'phone',
       width: 140,
       align: 'center',
     },
     {
-      title: t('详细地址'),
+      title: t('Address'),
       dataIndex: 'address',
       ellipsis: true,
       key: 'address',
       align: 'center',
     },
     {
-      title: t('创建时间'),
+      title: t('Creation Time'),
       dataIndex: 'createdTime',
       key: 'createdTime',
       format: 'date|YYYY-MM-DD HH:mm:ss',
@@ -124,13 +124,13 @@
     actions: (record: Recordable) => [
       {
         icon: 'ant-design:team-outlined',
-        title: t('租户管理员'),
+        title: t('Tenant Admin'),
         onClick: handleTenantAdmin.bind(this, { ...record }),
       },
       {
         icon: 'ant-design:delete-outlined',
         color: 'error',
-        title: t('删除租户'),
+        title: t('Delete Tenant'),
         onClick: handleDelete.bind(this, { ...record }),
       },
     ],
@@ -161,14 +161,14 @@
   async function handleDelete(record: Recordable) {
     createConfirm({
       iconType: 'error',
-      title: `确定删除租户[${record.title}]吗？`,
-      content: '请注意：确认后，租户和所有相关数据将不可恢复。',
+      title: `Are you sure you want to delete Tenant [${record.title}]？`,
+      content: 'WARNING: After confirmation, all Tenant data will be unrecoverable.',
       centered: false,
-      okText: '删除',
+      okText: 'Delete',
       onOk: async () => {
         try {
           await tenantDelete(record.id.id);
-          showMessage('删除租户成功！');
+          showMessage('Tenant deleted successfully!');
         } catch (error: any) {
           console.log(error);
         } finally {
