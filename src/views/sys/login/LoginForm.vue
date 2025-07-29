@@ -71,7 +71,7 @@
         {{ t('sys.login.registerButton') }}
       </Button> -->
     </FormItem>
-    <ARow class="enter-x md:pl-3">
+    <!-- <ARow class="enter-x md:pl-3">
       <ACol :md="7" :xs="24">
         <Button block @click="setLoginState(LoginStateEnum.MOBILE)">
           {{ t('sys.login.mobileSignInFormTitle') }}
@@ -81,7 +81,7 @@
         <Button block @click="setLoginState(LoginStateEnum.QR_CODE)">
           {{ t('sys.login.qrSignInFormTitle') }}
         </Button>
-      </ACol>
+      </ACol> -->
       <ACol :md="7" :xs="24">
         <Button block @click="setLoginState(LoginStateEnum.REGISTER)">
           {{ t('sys.login.registerButton') }}
@@ -89,7 +89,7 @@
       </ACol>
     </ARow>
 
-    <Divider class="enter-x">{{ t('技术支持') }}</Divider>
+    <Divider class="enter-x">{{ t('Sign in Methods') }}</Divider>
 
     <div class="enter-x flex justify-evenly" :class="`${prefixCls}-sign-in-way`">
       <Icon icon="gitee.svg" size="24" @click="handle2Gitee" />
@@ -136,11 +136,11 @@
   // const rememberMe = ref(false);
   const isValidCodeLogin = ref(false);
 
-  const formData = reactive({
-    account: '1069035666@qq.com',
-    password: '17621315188',
-    validCode: '',
-  });
+  //const formData = reactive({
+    //account: '1069035666@qq.com',
+    //password: '17621315188',
+    //validCode: '',
+  //});
 
   const { validForm } = useFormValid(formRef);
 
