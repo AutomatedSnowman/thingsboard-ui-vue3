@@ -10,7 +10,7 @@
         <div class="space-x-2">
           <RangePicker v-model:value="searchParam.timeRange" style="width: 300px" show-time :allow-clear="true"
             format="YYYY/MM/DD HH:mm" :presets="rangePresets" @change="reload()" />
-          <a-input v-model:value="searchParam.textSearch" placeholder="输入搜索内容" allow-clear @change="reload"
+          <a-input v-model:value="searchParam.textSearch" placeholder="Search..." allow-clear @change="reload"
             style="width: 240px;">
             <template #suffix>
               <icon icon="ant-design:search-outlined" />
@@ -70,16 +70,16 @@ const props = defineProps({
 });
 
 const getTitle = {
-  value: '报警',
+  value: 'Alarm',
 };
 
 const rangePresets = ref([
-  { label: '今天', value: [dayjs().startOf('D'), dayjs()] },
-  { label: '最近1小时', value: [dayjs().subtract(1, 'hour'), dayjs()] },
-  { label: '最近6小时', value: [dayjs().subtract(6, 'hour'), dayjs()] },
-  { label: '最近1天', value: [dayjs().subtract(1, 'day').startOf('D'), dayjs()] },
-  { label: '最近3天', value: [dayjs().subtract(2, 'day').startOf('D'), dayjs()] },
-  { label: '最近7天', value: [dayjs().subtract(6, 'day').startOf('D'), dayjs()] },
+  { label: 'Today', value: [dayjs().startOf('D'), dayjs()] },
+  { label: 'Last 1 Hour', value: [dayjs().subtract(1, 'hour'), dayjs()] },
+  { label: 'Last 6 Hours', value: [dayjs().subtract(6, 'hour'), dayjs()] },
+  { label: 'Last Day', value: [dayjs().subtract(1, 'day').startOf('D'), dayjs()] },
+  { label: 'Last 3 Days', value: [dayjs().subtract(2, 'day').startOf('D'), dayjs()] },
+  { label: 'Last 7 Days', value: [dayjs().subtract(6, 'day').startOf('D'), dayjs()] },
 ]);
 
 
@@ -89,7 +89,7 @@ const searchParam = reactive({
 })
 const tableColumns: BasicColumn[] = [
   {
-    title: t('发起者'),
+    title: t('Originator'),
     dataIndex: 'originatorName',
     key: 'originatorName',
     sorter: true,
@@ -98,7 +98,7 @@ const tableColumns: BasicColumn[] = [
     ifShow: isEmpty(props.entityType),
   },
   {
-    title: t('报警类型'),
+    title: t('Alarm Type'),
     dataIndex: 'type',
     key: 'type',
     width: 200,
@@ -107,13 +107,13 @@ const tableColumns: BasicColumn[] = [
   },
 
   {
-    title: '委托人',
+    title: 'Assignee',
     dataIndex: 'assignee.firstName',
     key: 'assignee.firstName',
     align: 'center',
   },
   {
-    title: '报警等级',
+    title: 'Severity',
     dataIndex: 'severity',
     key: 'severityList',
     align: 'center',
@@ -122,7 +122,7 @@ const tableColumns: BasicColumn[] = [
     slot: 'severity',
   },
   {
-    title: '报警状态',
+    title: 'Alarm State',
     dataIndex: 'status',
     key: 'statusList',
     align: 'center',
@@ -131,7 +131,7 @@ const tableColumns: BasicColumn[] = [
     format: (text: any) => text ? ALARM_SHOW_STATUS_OPTIONS.find((item) => item.value === text)?.label || text : ''
   },
   {
-    title: t('创建时间'),
+    title: t('Creation Time'),
     dataIndex: 'createdTime',
     key: 'createdTime',
     format: 'date|YYYY-MM-DD HH:mm:ss',
@@ -146,13 +146,13 @@ const actionColumn: BasicColumn = {
   actions: (record: Recordable) => [
     {
       icon: 'ant-design:appstore-outlined',
-      title: t('报警详情'),
+      title: t('Alarm Details'),
       onClick: handleDetail.bind(this, { ...record }),
     },
     {
       icon: 'ant-design:delete-outlined',
       color: 'error',
-      title: t('删除报警'),
+      title: t('Delete Alarm'),
       ifShow: hasPermission(Authority.TENANT_ADMIN),
       onClick: handleDelete.bind(this, { ...record }),
     },
@@ -195,10 +195,10 @@ async function fetchAlarmInfoList(param: any) {
 async function handleDelete(record: Recordable) {
   createConfirm({
     iconType: 'error',
-    title: `确定删除报警[${record.name}]吗？`,
-    content: '请注意：确认后，报警关数据将不可恢复。',
+    title: `Delete Alarm[${record.name}]？`,
+    content: 'WARNING: After deletion, the data will be unrecoverable.',
     centered: false,
-    okText: '删除',
+    okText: 'Delete',
     okButtonProps: {
       type: 'primary',
       danger: true,
@@ -206,7 +206,7 @@ async function handleDelete(record: Recordable) {
     onOk: async () => {
       try {
         await deleteAlarm(record.id.id);
-        showMessage('删除报警成功！');
+        showMessage('Success！');
       } catch (error: any) {
         console.log(error);
       } finally {
