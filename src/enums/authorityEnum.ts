@@ -18,9 +18,9 @@ export enum Authority {
 
 
   export const AUTHORITY_OPTIONS = [
-    { value: Authority.SYS_ADMIN, label: '系统管理员' },
-    { value: Authority.TENANT_ADMIN, label: '租户管理员' },
-    { value: Authority.CUSTOMER_USER, label: '客户' },
-    { value: Authority.REFRESH_TOKEN, label: '刷新Token' },
-    { value: Authority.PRE_VERIFICATION_TOKEN, label: '验证Token' }
+    { value: Authority.SYS_ADMIN, label: 'System Admin' },
+    { value: Authority.TENANT_ADMIN, label: 'Tenant Admin' },
+    { value: Authority.CUSTOMER_USER, label: 'User' },
+    { value: Authority.REFRESH_TOKEN, label: 'Refresh Token' },
+    { value: Authority.PRE_VERIFICATION_TOKEN, label: 'Verify Token' }
   ];
