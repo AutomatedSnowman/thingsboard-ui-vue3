@@ -69,21 +69,21 @@ export default {
   },
   login: {
     backSignIn: 'Back sign in',
-    mobileSignInFormTitle: 'Mobile sign in',
-    qrSignInFormTitle: 'Qr code sign in',
-    signInFormTitle: 'Sign in',
-    signUpFormTitle: 'Sign up',
-    forgetFormTitle: 'Reset password',
+    mobileSignInFormTitle: 'Mobile Sign In',
+    qrSignInFormTitle: 'QR Code Sign In',
+    signInFormTitle: 'Sign In',
+    signUpFormTitle: 'Sign Up',
+    forgetFormTitle: 'Reset Password',
 
     signInTitle: 'Backstage management system',
     signInDesc: 'Enter your personal details and get started!',
-    policy: 'I agree to the about Privacy Policy',
+    policy: 'I agree to the Privacy Policy',
     scanSign: `scanning the code to complete the login`,
 
-    loginButton: 'Sign in',
-    registerButton: 'Sign up',
-    rememberMe: 'Remember me',
-    forgetPassword: 'Forget Password?',
+    loginButton: 'Sign In',
+    registerButton: 'Sign Up',
+    rememberMe: 'Remember Me',
+    forgetPassword: 'Forgot Password?',
     otherSignIn: 'Sign in with',
 
     // notify
