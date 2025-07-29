@@ -1,11 +1,11 @@
 <template>
-  <CollapseContainer :title="t('通知设置')" :canExpan="false">
+  <CollapseContainer :title="t('Notification Settings')" :canExpan="false">
     <div v-if="record?.prefs" class="notifiction-container">
       <div class="notifiction-header">
-        <div class="notifiction-item notifiction-title"> <Checkbox> 类型 </Checkbox></div>
+        <div class="notifiction-item notifiction-title"> <Checkbox> Type </Checkbox></div>
         <div class="notifiction-item notifiction-delivery"><Checkbox> Web </Checkbox> </div>
         <div class="notifiction-item notifiction-delivery"><Checkbox> Email </Checkbox> </div>
-        <div class="notifiction-item notifiction-delivery"><Checkbox> 短信 </Checkbox> </div>
+        <div class="notifiction-item notifiction-delivery"><Checkbox> Message </Checkbox> </div>
       </div>
 
       <div v-for="(prefs, type, index) in record.prefs" :key="index" class="notifiction-row">
