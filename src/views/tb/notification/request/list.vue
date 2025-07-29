@@ -3,12 +3,12 @@
     <BasicTable @register="registerTable">
       <template #headerTop>
         <div class="text-lg font-bold my-2">
-          {{ t('发送记录') }}
+          {{ t('Send Records') }}
         </div>
       </template>
       <template #tableTitle>
         <div class="space-x-2">
-          <a-input v-model:value="searchParam.textSearch" placeholder="输入搜索内容" allow-clear @change="reload()"
+          <a-input v-model:value="searchParam.textSearch" placeholder="Search..." allow-clear @change="reload()"
             style="width: 240px;">
             <template #suffix>
               <icon icon="ant-design:search-outlined" />
@@ -28,16 +28,16 @@
           <template #icon>
             <SyncOutlined :spin="true" />
           </template>
-          定时中...
+          Timer in progress...
         </Tag>
         <Tag color="processing" v-else-if="NotificationRequestStatus.PROCESSING == record.status">
           <template #icon>
             <SyncOutlined :spin="true" />
           </template>
-          处理中...
+          Processing...
         </Tag>
         <Tag color="success" v-else-if="NotificationRequestStatus.SENT == record.status">
-          已发送
+          Sent
         </Tag>
         <Tag color="default" v-else>
           {{ record.status }}
@@ -48,13 +48,13 @@
           --
         </div>
         <div v-else-if="!isEmpty(record.stats.error)">
-          <Tag style="cursor:pointer;" color="error" @click="handleStats(record)">错误</Tag>
+          <Tag style="cursor:pointer;" color="error" @click="handleStats(record)">Error</Tag>
         </div>
         <div v-else-if="!isEmpty(record.stats.errors)">
           <Tag style="cursor:pointer;" color="error" @click="handleStats(record)">
             {{ Object.keys(record.stats.errors).map(key => Object.keys(record.stats.errors[key]).length).reduce((a, b) =>
               a + b, 0) }}
-            条 失败
+            Failed
           </Tag>
         </div>
         <div v-else>
@@ -62,7 +62,7 @@
             {{
               Object.keys(record.stats.sent).map(key => Number.parseInt(record.stats.sent[key])).reduce((a, b) => a + b, 0)
             }}
-            条 成功
+            Success
           </Tag>
         </div>
       </template>
@@ -99,7 +99,7 @@ const userStore = useUserStore();
 const { createConfirm, showMessage } = useMessage();
 
 const getTitle = {
-  value: router.currentRoute.value.meta.title || '发送记录',
+  value: router.currentRoute.value.meta.title || 'Send Records',
 };
 
 
@@ -109,7 +109,7 @@ const searchParam = reactive({
 })
 const tableColumns: BasicColumn[] = [
   {
-    title: t('模板'),
+    title: t('Template'),
     dataIndex: 'templateName',
     key: 'templateName',
     fixed: 'left',
@@ -118,7 +118,7 @@ const tableColumns: BasicColumn[] = [
     sorter: true,
   },
   {
-    title: '发送方式',
+    title: 'Send Method',
     key: 'deliveryMethods',
     dataIndex: 'deliveryMethods',
     width: 160,
@@ -126,7 +126,7 @@ const tableColumns: BasicColumn[] = [
     slot: 'deliveryMethods',
   },
   {
-    title: t('状态'),
+    title: t('State'),
     dataIndex: 'status',
     key: 'status',
     width: 120,
@@ -135,7 +135,7 @@ const tableColumns: BasicColumn[] = [
     sorter: true,
   },
   {
-    title: '结果',
+    title: 'Stats',
     align: 'center',
     dataIndex: 'stats',
     key: 'stats',
@@ -143,7 +143,7 @@ const tableColumns: BasicColumn[] = [
     width: 120,
   },
   {
-    title: t('创建时间'),
+    title: t('Creation Time'),
     dataIndex: 'createdTime',
     key: 'createdTime',
     format: 'date|YYYY-MM-DD HH:mm:ss',
@@ -158,7 +158,7 @@ const actionColumn: BasicColumn = {
   actions: (record: Recordable) => [
     {
       icon: 'ant-design:send-outlined',
-      title: t('重新发送'),
+      title: t('Resend'),
       color: 'success',
       onClick: handleForm.bind(this, { ...record }),
       ifShow: record.status == NotificationRequestStatus.SENT,
@@ -166,7 +166,7 @@ const actionColumn: BasicColumn = {
     {
       icon: 'ant-design:delete-outlined',
       color: 'error',
-      title: t('删除发送记录'),
+      title: t('Send Error'),
       onClick: handleDelete.bind(this, { ...record }),
     },
   ],
@@ -197,10 +197,10 @@ function wrapFetchParams(param: any) {
 async function handleDelete(record: Recordable) {
   createConfirm({
     iconType: 'error',
-    title: () => h('span', { innerHTML: `确定删除发送记录[]吗？` }),
-    content: '请注意：确认后，删除后发送记录将不可恢复。',
+    title: () => h('span', { innerHTML: `Are you sure you want to delete the sending record[]？` }),
+    content: 'WARNING: After deletion, the data will be unrecoverable.',
     centered: false,
-    okText: '删除',
+    okText: 'Delete',
     okButtonProps: {
       type: 'primary',
       danger: true,
@@ -208,7 +208,7 @@ async function handleDelete(record: Recordable) {
     onOk: async () => {
       try {
         await deleteNotificationRequest(record.id.id);
-        showMessage('删除发送记录成功！');
+        showMessage('Success！');
       } catch (error: any) {
         console.log(error);
       } finally {
