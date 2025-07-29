@@ -16,21 +16,21 @@ export enum NotificationType {
   TASK_PROCESSING_FAILURE = 'TASK_PROCESSING_FAILURE',
 }
 export const NOTIFICATION_TYPE_OPTIONS = [
-  { value: NotificationType.GENERAL, label: '通用' },
-  { value: NotificationType.ALARM, label: '告警' },
-  { value: NotificationType.DEVICE_ACTIVITY, label: '设备活动' },
-  { value: NotificationType.ENTITY_ACTION, label: '实体操作' },
-  { value: NotificationType.ALARM_COMMENT, label: '告警评论' },
-  { value: NotificationType.RULE_ENGINE_COMPONENT_LIFECYCLE_EVENT, label: '规则引擎生命周期事件' },
-  { value: NotificationType.ALARM_ASSIGNMENT, label: '告警分配' },
-  { value: NotificationType.NEW_PLATFORM_VERSION, label: '平台新版本' },
-  { value: NotificationType.ENTITIES_LIMIT, label: '实体限制' },
-  { value: NotificationType.API_USAGE_LIMIT, label: 'API限制' },
-  { value: NotificationType.RULE_NODE, label: '规则节点' },
-  { value: NotificationType.RATE_LIMITS, label: '超过速率限制' },
-  { value: NotificationType.EDGE_CONNECTION, label: 'Edge 连接' },
-  { value: NotificationType.EDGE_COMMUNICATION_FAILURE, label: 'Edge 连接失败' },
-  { value: NotificationType.TASK_PROCESSING_FAILURE, label: '任务处理失败' },
+  { value: NotificationType.GENERAL, label: 'General' },
+  { value: NotificationType.ALARM, label: 'Alarm' },
+  { value: NotificationType.DEVICE_ACTIVITY, label: 'Device Activity' },
+  { value: NotificationType.ENTITY_ACTION, label: 'Entity Action' },
+  { value: NotificationType.ALARM_COMMENT, label: 'Alarm Comment' },
+  { value: NotificationType.RULE_ENGINE_COMPONENT_LIFECYCLE_EVENT, label: 'Rule Engine Life Cycle Event' },
+  { value: NotificationType.ALARM_ASSIGNMENT, label: 'Alarm Assignment' },
+  { value: NotificationType.NEW_PLATFORM_VERSION, label: 'New Platform Version' },
+  { value: NotificationType.ENTITIES_LIMIT, label: 'Entity Limit' },
+  { value: NotificationType.API_USAGE_LIMIT, label: 'API Usage Limit' },
+  { value: NotificationType.RULE_NODE, label: 'Rule Node' },
+  { value: NotificationType.RATE_LIMITS, label: 'Rate Limit Exceeded' },
+  { value: NotificationType.EDGE_CONNECTION, label: 'Edge Connection' },
+  { value: NotificationType.EDGE_COMMUNICATION_FAILURE, label: 'Edge Connection Failed' },
+  { value: NotificationType.TASK_PROCESSING_FAILURE, label: 'Task Processing Failed' },
 ];
 
 export enum NotificationStatus {
@@ -44,9 +44,9 @@ export enum NotificationRequestStatus {
 }
 
 export const NOTIFICATION_REQUEST_STATUS_OPTIONS = [
-  { value: NotificationRequestStatus.PROCESSING, label: '处理中' },
-  { value: NotificationRequestStatus.SENT, label: '已发送' },
-  { value: NotificationRequestStatus.SCHEDULED, label: '定时中' },
+  { value: NotificationRequestStatus.PROCESSING, label: 'Processing' },
+  { value: NotificationRequestStatus.SENT, label: 'Sent' },
+  { value: NotificationRequestStatus.SCHEDULED, label: 'Scheduled' },
 ];
 
 export enum NotificationRecipientType {
@@ -55,8 +55,8 @@ export enum NotificationRecipientType {
 }
 
 export const NOTIFICATION_RECIPIENT_TYPE_OPTIONS = [
-  { value: NotificationRecipientType.PLATFORM_USERS, label: '平台用户' },
-  { value: NotificationRecipientType.SLACK, label: 'Slack用户' },
+  { value: NotificationRecipientType.PLATFORM_USERS, label: 'Platform User' },
+  { value: NotificationRecipientType.SLACK, label: 'Slack User' },
 ];
 
 export enum NotificationRecipientUsersFilter {
@@ -71,15 +71,15 @@ export enum NotificationRecipientUsersFilter {
 }
 
 export const NOTIFICATION_RECIPIENT_USER_FILTER_OPTIONS = [
-  { value: NotificationRecipientUsersFilter.ALL_USERS, label: '所有用户' },
-  { value: NotificationRecipientUsersFilter.USER_LIST, label: '用户列表' },
-  { value: NotificationRecipientUsersFilter.CUSTOMER_USERS, label: '客户' },
-  { value: NotificationRecipientUsersFilter.TENANT_ADMINISTRATORS, label: '租户管理员' },
-  { value: NotificationRecipientUsersFilter.SYSTEM_ADMINISTRATORS, label: '系统管理员' },
-  { value: NotificationRecipientUsersFilter.AFFECTED_USER, label: '受影响的用户' },
+  { value: NotificationRecipientUsersFilter.ALL_USERS, label: 'All Users' },
+  { value: NotificationRecipientUsersFilter.USER_LIST, label: 'User List' },
+  { value: NotificationRecipientUsersFilter.CUSTOMER_USERS, label: 'Customer Users' },
+  { value: NotificationRecipientUsersFilter.TENANT_ADMINISTRATORS, label: 'Tenant Admins' },
+  { value: NotificationRecipientUsersFilter.SYSTEM_ADMINISTRATORS, label: 'System Admins' },
+  { value: NotificationRecipientUsersFilter.AFFECTED_USER, label: 'Affected User' },
   {
     value: NotificationRecipientUsersFilter.AFFECTED_TENANT_ADMINISTRATORS,
-    label: '受影响的租户管理员',
+    label: 'Affected Tenant Admin',
   },
-  { value: NotificationRecipientUsersFilter.ORIGINATOR_ENTITY_OWNER_USERS, label: '实体所属用户' },
+  { value: NotificationRecipientUsersFilter.ORIGINATOR_ENTITY_OWNER_USERS, label: 'User Entity Owner' },
 ];
