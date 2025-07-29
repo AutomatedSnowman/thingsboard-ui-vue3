@@ -3,12 +3,12 @@
     <BasicForm @register="registerForm">
       <template #onlyUserComments="{ model, field }">
         <div class="flex items-center mb-2">
-          <Switch size="small" v-model:checked="model[field]" /> <span class="ml-2">只有用户评论时通知</span>
+          <Switch size="small" v-model:checked="model[field]" /> <span class="ml-2">Notify on user comment</span>
         </div>
       </template>
       <template #notifyOnCommentUpdate="{ model, field }">
         <div class="flex items-center mb-2">
-          <Switch size="small" v-model:checked="model[field]" /> <span class="ml-2">评论更新时通知</span>
+          <Switch size="small" v-model:checked="model[field]" /> <span class="ml-2">Notify when comments are updated</span>
         </div>
       </template>
     </BasicForm>
@@ -31,39 +31,39 @@ const { t } = useI18n('tb');
 const inputFormSchemas: FormSchema[] = [
   { field: 'triggerConfig.triggerType', component: 'Input', defaultValue: NotificationType.ALARM_COMMENT, show: false },
   {
-    label: t('报警类型'),
-    subLabel: t('不选择为任意等级'),
+    label: t('Alarm Type'),
+    subLabel: t('No Alarm Level'),
     field: 'triggerConfig.alarmTypes',
     component: 'Select',
     componentProps: {
       options: [],
       mode: 'tags',
       open: false,
-      placeholder: '任意报警类型'
+      placeholder: 'Any Alarm Type'
     },
     colProps: { lg: 24, md: 24 },
   },
   {
-    label: t('报警等级'),
-    subLabel: t('不选择为任意等级'),
+    label: t('Alarm Level'),
+    subLabel: t('No Level Selected'),
     field: 'triggerConfig.alarmSeverities',
     component: 'Select',
     componentProps: {
       mode: 'multiple',
       options: ALARM_SEVERITY_OPTIONS,
-      placeholder: '任意报警等级'
+      placeholder: 'Any Alarm Level'
     },
     colProps: { lg: 24, md: 24 },
   },
   {
-    label: t('报警状态'),
-    subLabel: t('不选择为任意状态'),
+    label: t('Alarm Status'),
+    subLabel: t('No State Selected'),
     field: 'triggerConfig.alarmStatuses',
     component: 'Select',
     componentProps: {
       mode: 'multiple',
       options: ALARM_STATUS_OPTIONS,
-      placeholder: '任意报警状态'
+      placeholder: 'Any Alarm Status'
     },
 
     colProps: { lg: 24, md: 24 },
@@ -84,7 +84,7 @@ const inputFormSchemas: FormSchema[] = [
   },
 
   {
-    label: t('描述信息'),
+    label: t('Description'),
     field: 'additionalConfig.description',
     component: 'InputTextArea',
     componentProps: {
