@@ -11,7 +11,7 @@
         <Icon :icon="getTitle.icon" class="pr-3 m-1 tb-detail-title-icon" />
         <div class="flex flex-col">
           <span class="text-lg font-bold">{{ getTitle.value || '· · · ·' }}</span>
-          <span class="text-sm">租户管理员详情</span>
+          <span class="text-sm">Tenant Admin Details</span>
         </div>
       </div>
     </template>
@@ -22,45 +22,45 @@
         </template>
         <div class="space-x-4">
           <a-button type="primary" @click="handleAdminLogin">
-            <Icon :icon="'ant-design:login-outlined'" />以管理员身份登录
+            <Icon :icon="'ant-design:login-outlined'" />Log in as Admin
           </a-button>
           <a-button type="primary" @click="handleShowActivationLink">
-            <Icon :icon="'ant-design:login-outlined'" />显示激活链接
+            <Icon :icon="'ant-design:login-outlined'" />Show Activation Link
           </a-button>
           <a-button type="primary" @click="handleSendActivationEmail">
-            <Icon :icon="'ant-design:login-outlined'" />重新发送激活邮件
+            <Icon :icon="'ant-design:login-outlined'" />Resend Activation Email
           </a-button>
           <a-button type="primary success" @click="handleEditUser">
-            <Icon :icon="'i-clarity:note-edit-line'" />编辑管理员
+            <Icon :icon="'i-clarity:note-edit-line'" />Edit Administrator
           </a-button>
           <a-button type="primary" danger @click="handleDeleteUser">
-            <Icon :icon="'ant-design:delete-outlined'" />删除管理员
+            <Icon :icon="'ant-design:delete-outlined'" />Delete Administrator
           </a-button>
         </div>
         <div class="space-x-4 my-4">
           <a-button @click="handleCopyUserId">
             <Icon :icon="'ant-design:copy-filled'" />
-            复制用户ID
+            Copy User ID
           </a-button>
         </div>
         <Description @register="register" size="default">
           <template #defaultDashboardFullscreen="{ val }">
-            <Checkbox :checked="val">默认全屏</Checkbox>
+            <Checkbox :checked="val">Default Full Screen</Checkbox>
           </template>
           <template #homeDashboardHideToolbar="{ val }">
-            <Checkbox :checked="val">隐藏工具栏</Checkbox>
+            <Checkbox :checked="val">Hide Tool Bar</Checkbox>
           </template>
         </Description>
       </TabPane>
       <TabPane key="TELEMETRY">
         <template #tab>
-          <span> <Icon :icon="'ant-design:line-chart-outlined'" /> 数据 </span>
+          <span> <Icon :icon="'ant-design:line-chart-outlined'" /> Data </span>
         </template>
         <Telemetry  v-if="tabActiveKey == 'TELEMETRY'"  :entityType="EntityType.USER" :entityId="record?.id?.id" />
       </TabPane>
       <TabPane key="RELATION">
         <template #tab><span>
-            <Icon :icon="'ant-design:radar-chart-outlined'" /> 关联
+            <Icon :icon="'ant-design:radar-chart-outlined'" /> Association
           </span> </template>
         <Relation :entityType="EntityType.USER" :entityId="record?.id?.id" />
       </TabPane>
@@ -101,33 +101,33 @@
 
   const descSchema: DescItem[] = [
     {
-      label: t('电子邮件'),
+      label: t('Email'),
       field: 'email',
       span: 4,
     },
     {
-      label: t('姓名'),
+      label: t('First Name'),
       field: 'firstName',
       span: 4,
     },
     {
-      label: t('手机号码'),
+      label: t('Phone Number'),
       field: 'phone',
       span: 2,
     },
     {
-      label: t('职务'),
+      label: t('Last Name'),
       field: 'lastName',
       span: 2,
     },
 
     {
-      label: t('描述信息'),
+      label: t('Additional Info'),
       field: 'additionalInfo.description',
       span: 4,
     },
     {
-      label: t('默认仪表盘'),
+      label: t('Default Dashboard'),
       field: 'additionalInfo.defaultDashboardTitle',
       span: 2,
     },
@@ -138,7 +138,7 @@
       span: 2,
     },
     {
-      label: t('首页仪表盘'),
+      label: t('Home Dashboard'),
       field: 'additionalInfo.homeDashboardTitle',
       span: 2,
     },
@@ -187,7 +187,7 @@
   }
 
   function handleCopyUserId() {
-    copyToClipboard(record.value.id.id, '复制用户ID成功！');
+    copyToClipboard(record.value.id.id, 'User ID Copied Successfully!');
   }
 
   function handleDeleteUser() {
@@ -206,13 +206,13 @@
       createConfirm({
         iconType: 'success',
         icon: () => h(Icon, { icon: 'ant-design:info-circle-filled', style: { color: 'blue' } }),
-        title: '用户激活链接',
+        title: 'User Activation Link',
         content: h('a', { href: activationLink, target: '_blank' }, `${activationLink}`),
         width: '50%',
-        okText: '确认',
-        cancelText: '复制',
+        okText: 'Confirm',
+        cancelText: 'Copy',
         maskClosable: false,
-        onCancel: () => copyToClipboard(activationLink, '复制用户激活链接成功！'),
+        onCancel: () => copyToClipboard(activationLink, 'Copied!'),
       });
     } catch (error) {
       console.log(error);
@@ -222,7 +222,7 @@
   async function handleSendActivationEmail() {
     try {
       await sendActivationEmail(record.value.email);
-      showMessage('激活电子邮件已成功发送！', 'success');
+      showMessage('Activation Email Sent Successfully', 'success');
     } catch (error) {
       console.log(error);
     }
