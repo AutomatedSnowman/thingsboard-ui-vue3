@@ -6,7 +6,7 @@
         <Icon :icon="getTitle.icon" class="pr-3 m-1 tb-detail-title-icon" />
         <div class="flex flex-col">
           <span class="text-lg font-bold">{{ getTitle.value || '· · · ·' }}</span>
-          <span class="text-sm">租户详情</span>
+          <span class="text-sm">Tenant Details</span>
         </div>
       </div>
     </template>
@@ -17,19 +17,19 @@
           </span> </template>
         <div class="space-x-4">
           <a-button type="primary" @click="handleTenantAdmin">
-            <Icon :icon="'ant-design:team-outlined'" />租户管理员
+            <Icon :icon="'ant-design:team-outlined'" />Tenant Admin
           </a-button>
           <a-button type="primary success" @click="handleEditTenant">
-            <Icon :icon="'i-clarity:note-edit-line'" />编辑租户
+            <Icon :icon="'i-clarity:note-edit-line'" />Edit Tenant Admin
           </a-button>
           <a-button type="primary" danger @click="handleDeleteTenant">
-            <Icon :icon="'ant-design:delete-outlined'" />租删租户
+            <Icon :icon="'ant-design:delete-outlined'" />Delete Tenant Admin
           </a-button>
         </div>
         <div class="space-x-4  my-4">
           <a-button @click="handleCopyTenantId">
             <Icon :icon="'ant-design:copy-filled'" />
-            复制租户ID
+            Copy Tenant ID
           </a-button>
         </div>
         <Description @register="register" size="default">
@@ -42,25 +42,25 @@
       </TabPane>
       <TabPane key="TELEMETRY">
         <template #tab><span>
-            <Icon :icon="'ant-design:line-chart-outlined'" /> 数据
+            <Icon :icon="'ant-design:line-chart-outlined'" /> Data
           </span> </template>
         <Telemetry v-if="tabActiveKey == 'TELEMETRY'"  :entityType="EntityType.TENANT" :entityId="record?.id?.id" />
       </TabPane>
       <TabPane key="ALARM">
         <template #tab><span>
-            <Icon :icon="'ant-design:alert-outlined'" /> 报警
+            <Icon :icon="'ant-design:alert-outlined'" /> Alarm
           </span> </template>
         <Alarm :entityType="EntityType.TENANT" :entityId="record?.id?.id" />
       </TabPane>
       <TabPane key="EVENT">
         <template #tab><span>
-            <Icon :icon="'ant-design:info-circle-outlined'" /> 事件
+            <Icon :icon="'ant-design:info-circle-outlined'" /> Event
           </span> </template>
         <Event :entityType="EntityType.TENANT" :entityId="record?.id?.id" />
       </TabPane>
       <TabPane key="RELATION">
         <template #tab><span>
-            <Icon :icon="'ant-design:radar-chart-outlined'" /> 关联
+            <Icon :icon="'ant-design:radar-chart-outlined'" /> Relation
           </span> </template>
         <Relation :entityType="EntityType.TENANT" :entityId="record?.id?.id" />
       </TabPane>
@@ -103,53 +103,53 @@ const tabActiveKey = ref('DETAIL');
 
 const descSchema: DescItem[] = [
   {
-    label: t('租户名称'),
+    label: t('Tenant Name'),
     field: 'title',
     span: 4,
   },
   {
-    label: t('租户配置'),
+    label: t('Tenant Configuration'),
     field: 'tenantProfileName',
     span: 2,
 
   },
   {
-    label: t('手机号码'),
+    label: t('Phone Number'),
     field: 'phone',
     span: 2,
   },
   {
-    label: t('邮政编码'),
+    label: t('Zip Code'),
     field: 'zip',
     span: 2,
 
   },
   {
-    label: t('邮箱地址'),
+    label: t('Email Address'),
     field: 'email',
     span: 2,
 
   },
   {
-    label: t('省市区域'),
+    label: t('City, State, Country'),
     field: 'state',
     span: 4,
     slot: 'state',
   },
 
   {
-    label: t('详细地址'),
+    label: t('Address'),
     field: 'address',
     span: 4,
   },
   {
-    label: t('备用地址'),
+    label: t('Alternate Address'),
     field: 'address2',
     span: 4,
   },
 
   {
-    label: t('描述信息'),
+    label: t('Additional Information'),
     field: 'additionalInfo.description',
     span: 4,
   },
@@ -183,7 +183,7 @@ async function clear() {
 
 
 function handleCopyTenantId() {
-  copyToClipboard(record.value.id.id, '复制租户ID成功！')
+  copyToClipboard(record.value.id.id, 'Copied！')
 }
 
 function handleDeleteTenant() {
