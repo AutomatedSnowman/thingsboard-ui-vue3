@@ -11,7 +11,7 @@
         </Tag>
       </template>
       <template #assignee>
-        <Select v-model:value="assigneeId" placeholder="请选择委托人" :allow-clear="true" style="width: 90%;"
+        <Select v-model:value="assigneeId" placeholder="Please select a customer" :allow-clear="true" style="width: 90%;"
           @change="handleAssigneeChange">
           <Select.Option v-for="(option, index) in assigneeOptions" :key="index" :value="option.value">
             {{ option.label }}
@@ -26,11 +26,11 @@
     <div class="border border-solid border-neutral-300 p-2 my-4  rounded-md">
       <List size="small" :dataSource="commentList">
         <template #header>
-          <div class="text-base font-bold">评论</div>
+          <div class="text-base font-bold">Comment</div>
           <div class="mx-2 my-3 flex justify-around">
-            <Input placeholder="请输入评论并提交" v-model:value="inputComment" style="width: 90%;" />
+            <Input placeholder="Please enter a comment and submit" v-model:value="inputComment" style="width: 90%;" />
 
-            <Tooltip :title="'提交评论'">
+            <Tooltip :title="'Submit Comment'">
               <Icon class="cursor-pointer" :icon="'ant-design:send-outlined'" color="green" size="30"
                 @click="handleAddComment" />
             </Tooltip>
@@ -66,11 +66,11 @@
               </template>
             </List.Item.Meta>
             <template #actions v-if="item.type == 'OTHER'">
-              <Tooltip :title="'修改评论'" v-if="userStore.getUserInfo?.email == item.email">
+              <Tooltip :title="'Modify Comment'" v-if="userStore.getUserInfo?.email == item.email">
                 <Icon class="cursor-pointer" :icon="'i-clarity:note-edit-line'" color="green" :size="20"
                   @click="handleEditComment(item)" />
               </Tooltip>
-              <Tooltip :title="'删除评论'" v-if="userStore.getUserInfo?.email == item.email">
+              <Tooltip :title="'Delete Comment'" v-if="userStore.getUserInfo?.email == item.email">
                 <Icon class="cursor-pointer" :icon="'ant-design:delete-outlined'" color="red" :size="20"
                   @click="handleDeleteComment(item)" />
               </Tooltip>
@@ -84,10 +84,10 @@
     <template #footer>
       <Space>
         <a-button type="primary" :loading="confirmLoading" @click="handleAck"
-          v-if="alarmInfo?.acknowledged == false">应答</a-button>
+          v-if="alarmInfo?.acknowledged == false">Acknowledge</a-button>
         <a-button type="primary" :loading="confirmLoading" @click="handleClear"
-          v-if="alarmInfo?.cleared == false">清除</a-button>
-        <a-button @click="closeModal">关闭</a-button>
+          v-if="alarmInfo?.cleared == false">Clear</a-button>
+        <a-button @click="closeModal">Close</a-button>
       </Space>
     </template>
 
@@ -125,7 +125,7 @@ const alarmInfo = ref<AlarmInfo>({} as AlarmInfo);
 const commentList = ref<Array<AlarmCommentInfo>>();
 const getTitle = computed(() => ({
   icon: meta.icon || 'ant-design:book-outlined',
-  value: t('报警详细信息'),
+  value: t('Alarm Details'),
 }));
 
 const assigneeId = ref('');
@@ -159,42 +159,42 @@ async function fetchAssigneeOptions(alarmId: string) {
 
 const descSchema: DescItem[] = [
   {
-    label: t('发起者'),
+    label: t('Originator'),
     field: 'originatorName',
     span: 2,
   },
   {
-    label: t('报警等级'),
+    label: t('Severity'),
     field: 'severity',
     slot: 'severity',
     span: 2,
   },
   {
-    label: t('开始时间'),
+    label: t('Creation Time'),
     field: 'createdTime',
     render: (val) => dayjs(val).format('YYYY-MM-DD HH:mm:ss'),
     span: 2,
   },
   {
-    label: t('持续时间'),
+    label: t('Duration'),
     field: 'createdTime',
     render: (val) => getDuration(),
     span: 2,
   },
   {
-    label: t('报警类型'),
+    label: t('Alarm Type'),
     field: 'type',
     span: 2,
   },
   {
-    label: t('报警状态'),
+    label: t('Status'),
     field: 'status',
     render: (val) => val ? ALARM_SHOW_STATUS_OPTIONS.find((item) => item.value === val)?.label || val : '',
     span: 2,
 
   },
   {
-    label: t('委托人'),
+    label: t('Assignee'),
     field: 'assignee',
     slot: 'assignee',
     span: 4,
@@ -230,7 +230,7 @@ async function handleAddComment() {
   }
   try {
     const result = await saveAlarmComment({ alarmId: alarmInfo.value.id, comment: { text: inputComment.value }, type: 'OTHER' }, alarmInfo.value.id.id);
-    showMessage('新增评论成功！');
+    showMessage('Comments Added！');
   } catch (error: any) {
     if (error && error.errorFields) {
       showMessage(t('common.validateError'));
@@ -246,10 +246,10 @@ async function handleAddComment() {
 async function handleDeleteComment(record: Recordable) {
   createConfirm({
     iconType: 'error',
-    title: `确定要删除评论[${record.comment.text}]吗？`,
-    content: '请注意：确认后，数据将不可恢复。',
+    title: `Delete comments [${record.comment.text}]？`,
+    content: 'WARNING: After deletion, data will not be recoverable.',
     centered: false,
-    okText: '删除',
+    okText: 'Delete',
     okButtonProps: {
       type: 'primary',
       danger: true,
@@ -257,7 +257,7 @@ async function handleDeleteComment(record: Recordable) {
     onOk: async () => {
       try {
         await deleteAlarmComment(record.id.id, alarmInfo.value.id.id);
-        showMessage('删除评论成功！');
+        showMessage('Comment Removed Successfully！');
       } catch (error: any) {
         console.log(error);
       } finally {
@@ -270,14 +270,14 @@ async function handleDeleteComment(record: Recordable) {
 }
 
 function handleEditComment(record: Recordable) {
-  showMessage('开发中。。。');
+  showMessage('In development...');
 }
 
 async function handleAck() {
   try {
     confirmLoading.value = true;
     alarmInfo.value = await ackAlarm(alarmInfo.value.id.id);
-    showMessage(`应答成功！`);
+    showMessage(`Response Successful！`);
   } catch (error: any) {
     if (error && error.errorFields) {
       showMessage(t('common.validateError'));
@@ -293,7 +293,7 @@ async function handleClear() {
   try {
     confirmLoading.value = true;
     alarmInfo.value = await clearAlarm(alarmInfo.value.id.id);
-    showMessage(`清除成功！`);
+    showMessage(`Cleared Successfully！`);
   } catch (error: any) {
     if (error && error.errorFields) {
       showMessage(t('common.validateError'));
@@ -313,7 +313,7 @@ async function handleAssigneeChange(assigneeId: string) {
     } else {
       await assignAlarm(alarmInfo.value.id.id, assigneeId);
     }
-    showMessage(`${isEmpty(assigneeId) ? '清空' : '修改'}委托人成功！`);
+    showMessage(`${isEmpty(assigneeId) ? 'Clear' : 'Modify'}Succeeded！`);
   } catch (error: any) {
     if (error && error.errorFields) {
       showMessage(t('common.validateError'));
